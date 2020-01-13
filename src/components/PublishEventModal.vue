@@ -75,7 +75,14 @@ export default {
   methods: {
     onSubmit(evt) {
         evt.preventDefault()
-        alert(JSON.stringify(this.form))
+        this.axios
+        .post('/events', this.form)
+        .then((response) => {
+          alert(response.data)
+        })
+        .catch((error) => {
+          alert(error);
+        })
       },
     showModal(){
        this.$refs['publish-modal'].show();
