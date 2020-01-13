@@ -1,4 +1,4 @@
 module.exports = { 
-	publicPath: '/Inalambria-Front',
+	publicPath: '/',
 	outputDir: 'docs'
 }
