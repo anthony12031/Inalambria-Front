@@ -20,7 +20,7 @@
 
               <template v-slot:modal-footer="{ ok, cancel, hide }">
                 <!-- Emulate built in modal footer ok and cancel button actions -->
-                <b-button size="sm" variant="success" @click="ok()">
+                <b-button size="sm" variant="success" @click="onSubmit">
                   Aceptar
                 </b-button>
                 <b-button size="sm" variant="danger" @click="cancel()">
@@ -45,8 +45,23 @@ export default {
   },
   methods: {
     showModal(eventId){
-       this.$refs['buy-modal'].show(eventId)
-    }
+       this.$refs['buy-modal'].show();
+       this.id = eventId;
+    },
+    onSubmit(evt) {
+        evt.preventDefault()
+        this.axios
+        .post(`/purchase/${this.id}`,{numEntrances: this.numEntrances})
+        .then((response) => {
+          const created = response.data;
+          // Emitir evento con la respuesta del servicio
+          this.$emit('purchaseEvent', created);
+          this.$refs['buy-modal'].hide();
+        })
+        .catch((error) => {
+          alert(error);
+        })
+      }
   }
 }
 </script>

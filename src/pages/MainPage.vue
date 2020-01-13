@@ -8,6 +8,14 @@
     <b-alert v-model="showSuccessAlert" variant="success" dismissible>
       Evento creado
     </b-alert>
+    <!-- Alerta cuando se realiza una compra -->
+    <b-alert v-model="showPurchaseErrorAlert" variant="danger" dismissible>
+     Ocurrio un error al registrar la compra
+    </b-alert>
+    <!-- Alerta cuando ocurre un error registrando una compra -->
+    <b-alert v-model="showPurchaseSuccessAlert" variant="success" dismissible>
+      Compra registrada
+    </b-alert>
     <b-button @click="publishEvent()" class="mt-3" pill variant="success">Publicar Evento</b-button>
     <h3 class="ml-0"> Próximos eventos</h3>
     <section class="row text-center justify-content-center">
@@ -20,7 +28,7 @@
       :description = "event.description" 
       @buyTickets="buyTickets($event)"/>
     </section>
-    <BuyTicketsModal  ref="buy-modal"/> 
+    <BuyTicketsModal @purchaseEvent="purchaseEvent" ref="buy-modal"/> 
     <PublishEventModal @createEvent="createEvent" ref="publish-modal"/>
   </main>
 </template>
@@ -36,14 +44,9 @@ export default {
       return {
       showErrorAlert: false,
       showSuccessAlert: false,
-      eventList: [
-        { id: 0, name: 'event 1', description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been' },
-        { id: 1, name: 'event 2', description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been'  },
-        { id: 2, name: 'event 3', description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been'  },
-        { id: 3, name: 'event 1', description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been'  },
-        { id: 4, name: 'event 2', description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been'  },
-        { id: 5, name: 'event 3', description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been'  }
-      ]
+      showPurchaseErrorAlert: false,
+      showPurchaseSuccessAlert: false,
+      eventList: []
     }
   },
   props: {
@@ -82,6 +85,15 @@ export default {
       }
       else{
         this.showErrorAlert = true;
+      }
+    },
+    purchaseEvent: function(created){
+       // Mostrar cinta de notificación acción de creación
+      if (created){
+        this.showPurchaseSuccessAlert = true;
+      }
+      else{
+        this.showPurchaseErrorAlert = true;
       }
     }
   }
