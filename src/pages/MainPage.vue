@@ -1,6 +1,7 @@
 <template>
   <main class="container">
-    <h1 class="ml-0"> Proximos eventos</h1>
+    <b-button @click="publishEvent()" class="mt-3" pill variant="success">Publicar Evento</b-button>
+    <h3 class="ml-0"> Próximos eventos</h3>
     <section class="row text-center justify-content-center">
       <Event 
       class="col-5 m-2"
@@ -11,30 +12,16 @@
       :description = "event.description" 
       @buyTickets="buyTickets($event)"/>
     </section>
-     <b-modal ref="buy-modal" id="modal-scoped">
-              <template v-slot:modal-header="{ close }">
-                <h5>Comprar boletas para el evento</h5>
-              </template>
-
-              <template v-slot:default="{ hide }">
-                <p>Modal Body with button</p>
-              </template>
-
-              <template v-slot:modal-footer="{ ok, cancel, hide }">
-                <!-- Emulate built in modal footer ok and cancel button actions -->
-                <b-button size="sm" variant="success" @click="ok()">
-                  Aceptar
-                </b-button>
-                <b-button size="sm" variant="danger" @click="cancel()">
-                  Cancelar
-                </b-button>
-              </template>
-        </b-modal>
+    <BuyTicketsModal  ref="buy-modal"/> 
+    <PublishEventModal ref="publish-modal"/>
   </main>
 </template>
 
 <script>
 import Event from '../components/Event';
+import BuyTicketsModal from '../components/BuyTicketsModal';
+import PublishEventModal from '../components/PublishEventModal';
+
 export default {
   name: 'MainPage',
   data: function(){
@@ -53,14 +40,19 @@ export default {
     msg: String
   },
   components: {
-    Event
+    Event,
+    BuyTicketsModal,
+    PublishEventModal
   },
   methods: {
     buyTickets: function(eventId){
       // Mostrar modal de compra
-       this.$refs['buy-modal'].show(eventId)
+       this.$refs['buy-modal'].showModal(eventId)
        
       // Enviar petición de compra al API
+    },
+    publishEvent: function(){
+      this.$refs['publish-modal'].showModal();  
     }
   }
 }
