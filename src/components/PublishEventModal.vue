@@ -78,7 +78,10 @@ export default {
         this.axios
         .post('/events', this.form)
         .then((response) => {
-          alert(response.data)
+          const created = response.data;
+          // Emitir evento con la respuesta del servicio
+          this.$emit('createEvent', created);
+          this.$refs['publish-modal'].hide();
         })
         .catch((error) => {
           alert(error);
