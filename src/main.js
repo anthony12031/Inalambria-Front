@@ -9,7 +9,7 @@ import EventDetail from './pages/EventDetail';
 import VueAxios from "vue-axios";
 import axios from "axios";
 
-axios.defaults.baseURL = process.env.VUE_APP_API_URL || 'http://localhost:3000';
+axios.defaults.baseURL = 'https://inalambria-back.herokuapp.com/api/';
 Vue.use(VueAxios, axios);
 
 Vue.config.productionTip = false
