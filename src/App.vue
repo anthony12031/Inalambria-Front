@@ -1,20 +1,17 @@
 <template>
   <div id="app">
     <NavBar />
-    <MainPage />
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
 import NavBar from './components/NavBar';
-import MainPage from './pages/MainPage';
-
 
 export default {
   name: 'app',
   components: {
-    NavBar,
-    MainPage
+    NavBar
   }
 }
 </script>

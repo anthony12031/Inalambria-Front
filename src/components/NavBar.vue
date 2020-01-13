@@ -1,7 +1,9 @@
 <template>
    <div>
   <b-navbar toggleable="lg" type="dark" variant="info">
-    <b-navbar-brand href="#">Eventos</b-navbar-brand>
+    <b-navbar-brand href="#">
+      <router-link style="color:white" to="/">Eventos</router-link>
+      </b-navbar-brand>
 
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 

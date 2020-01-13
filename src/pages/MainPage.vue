@@ -39,6 +39,13 @@ export default {
   props: {
     msg: String
   },
+  mounted: function() {
+    this.axios
+    .get('/events')
+    .then((response) => {
+      this.eventList = response.data;
+    })
+  },
   components: {
     Event,
     BuyTicketsModal,
